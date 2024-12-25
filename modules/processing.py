@@ -6,7 +6,7 @@ def process_data(raw_data):
 
 def process_data_with_ollama(data):
     # Prepare data for the LLM
-    prompt = f"Analyze the following market data and provide a concise summary of key insights.  Keep it less than 3 sentences.:\n{data}"
+    prompt = f"Analyze the Bitcoin price of ${data['bitcoin']['usd']} USD and provide a concise summary of key insights."
 
     # Call the local Ollama LLM
     try:
