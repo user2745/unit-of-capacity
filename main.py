@@ -1,10 +1,15 @@
-# main.py
 from engine.core_engine import CoreEngine
 
-if __name__ == "__main__":
+def generate_bitcoin_insights():
     fetch_url = "http://127.0.0.1:5000/fetch"
-    process_url = "http://127.0.0.1:5000/process"
-    log_url = "http://127.0.0.1:5000/log"
+    log_url = None  # Optional logging endpoint, not used here
 
-    engine = CoreEngine(fetch_url, process_url, log_url)
-    engine.run()
+    # Initialize the engine
+    engine = CoreEngine(fetch_url, log_url)
+
+    # Run the engine and return the insights
+    return engine.run()
+
+if __name__ == "__main__":
+    insights = generate_bitcoin_insights()
+    print(insights)
