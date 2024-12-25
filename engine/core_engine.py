@@ -1,6 +1,6 @@
 # engine/core_engine.py
 from modules.data_ingestion import fetch_data
-from modules.processing import process_data
+from modules.processing import process_data_with_ollama
 from modules.logging import log_data
 
 class CoreEngine:
@@ -15,8 +15,8 @@ class CoreEngine:
         print(f"Fetched Data: {raw_data}")
 
         # Step 2: Process data
-        processed_data = process_data(raw_data["data"])
-        print(f"Processed Data: {processed_data}")
+        insights = process_data_with_ollama(raw_data["data"])
+        print(f"Generated Insights: {insights}")
 
         # Step 3: Log data
-        log_data(processed_data)
+        log_data(insights)

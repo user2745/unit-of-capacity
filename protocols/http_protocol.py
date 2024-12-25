@@ -1,12 +1,21 @@
 # protocols/http_protocol.py
-from flask import Flask, request, jsonify
+from flask import Flask, jsonify
+import requests
 
 app = Flask(__name__)
 
 @app.route('/fetch', methods=['GET'])
 def fetch_data():
-    # Mocked data source
-    return jsonify({"data": {"cpu": 70, "memory": 50, "disk": 30}})
+    try:
+        # Fetch live market data from CoinGecko
+        response = requests.get("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd")
+        response.raise_for_status()  # Raise an HTTPError for bad responses
+        market_data = response.json()
+        return jsonify({"data": market_data})
+    except requests.exceptions.RequestException as e:
+        # Log the error details for debugging
+        print(f"Error fetching market data: {e}")
+        return jsonify({"error": str(e)}), 500
 
 @app.route('/process', methods=['POST'])
 def process_data():
